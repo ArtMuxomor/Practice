@@ -11,6 +11,13 @@ namespace ValueTypes.Task1
             int years = 3;
             decimal rate = 10;
 
+            Console.WriteLine($"""
+                Начальный вклад: {deposit}
+                Сколько лет: {years}
+                Годовая процентная ставка: {rate}
+
+                """);
+
             var taskResult = CalculatePercents(deposit, years, rate);
             Console.WriteLine(taskResult);
         }

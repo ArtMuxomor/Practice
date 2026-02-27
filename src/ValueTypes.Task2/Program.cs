@@ -6,7 +6,10 @@ namespace ValueTypes.Task2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            foreach (var line in BuildDiamond(5))
+            {
+                Console.WriteLine(line);
+            }
         }
 
         public static IEnumerable<string> BuildDiamond(int n)

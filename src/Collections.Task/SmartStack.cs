@@ -10,33 +10,75 @@ namespace Collections.Task
         private T[] _values;
         private int _count;
 
-        public int Count => throw new NotImplementedException();
-
-        public int Capacity => throw new NotImplementedException();
+        public int Count => _count;
+        public int Capacity => _values.Length;
 
         public SmartStack()
         {
-            throw new NotImplementedException();
+            _values = new T[4];
+            _count = 0;
         }
 
         public SmartStack(int size)
         {
-            throw new NotImplementedException();
+            if (size < 0)
+            {
+                throw new ArgumentOutOfRangeException("Размер должен быть не меньше 0.");
+            }
+            _values = new T[size];
+            _count = 0;
         }
 
         public SmartStack(IEnumerable<T> values)
         {
-            throw new NotImplementedException();
+            if (values == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            int count = 0;
+            foreach (var item in values)
+            {
+                count++;
+            }
+
+            _values = new T[count];
+            foreach (var value in values)
+            {
+                _values[_count] = value;
+                _count++;
+            }
         }
 
         public void Push(T value)
         {
-            throw new NotImplementedException();
+            if (_count == _values.Length)
+            {
+                ExpandStack(_values.Length == 0 ? 4 : _values.Length * 2);
+            }
+
+            _values[_count] = value;
+            _count++;
         }
 
         public void PushRange(IEnumerable<T> values)
         {
-            throw new NotImplementedException();
+            if (values == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            foreach (var value in values)
+            {
+                Push(value);
+            }
+        }
+
+        private void ExpandStack(int newSize)
+        {
+            T[] newStack = new T[newSize];
+            Array.Copy(_values, newStack, _count);
+            _values = newStack;
         }
 
         public T Pop()

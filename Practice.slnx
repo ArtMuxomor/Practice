@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="src/Collections.Task/Collections.Task.csproj" Id="737c004d-c8be-4060-a746-66e3d10363a5" />
   <Project Path="src/OOP.Task/OOP.Task.csproj" />
   <Project Path="src/ValueTypes.Task1/ValueTypes.Task1.csproj" />
   <Project Path="src/ValueTypes.Task2/ValueTypes.Task2.csproj" Id="9cc4396c-9202-4305-949d-7e50d784d685" />

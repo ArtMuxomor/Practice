@@ -36,7 +36,13 @@
                 // Вывод 10
                 Console.WriteLine($"Метод Peek() вызван 2 раза. Первый элемент - {stackInt.Peek()}\n");
 
-                Console.WriteLine("------------------------------\n");
+                Console.WriteLine("Все элементы стека, полученные через индексатор []:");
+                for (int i = 0; i < stackInt.Count; i++)
+                {
+                    Console.Write($"{stackInt[i]} ");
+                }
+
+                Console.WriteLine("\n\n------------------------------\n");
 
                 var stackString = new SmartStack<string>(["string1", "string2", "string3"]);
 

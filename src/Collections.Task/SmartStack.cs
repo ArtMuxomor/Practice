@@ -128,5 +128,18 @@ namespace Collections.Task
         {
             return GetEnumerator();
         }
+
+        public T this[int index]
+        {
+            get
+            {
+                if (index < 0 || index >= _count)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+
+                return _values[_count - index - 1];
+            }
+        }
     }
 }

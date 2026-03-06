@@ -83,22 +83,45 @@ namespace Collections.Task
 
         public T Pop()
         {
-            throw new NotImplementedException();
+            if (_count == 0)
+            {
+                throw new InvalidOperationException("В стеке нет элементов.");
+            }
+
+            _count--;
+            T value = _values[_count];
+            _values[_count] = default;
+            return value;
         }
 
         public T Peek()
         {
-            throw new NotImplementedException();
+            if (_count == 0)
+            {
+                throw new InvalidOperationException("В стеке нет элементов.");
+            }
+
+            return _values[_count - 1];
         }
 
         public bool Contains(T value)
         {
-            throw new NotImplementedException();
+            for (int index = 0; index < _count; index++)
+            {
+                if (Equals(_values[index], value))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            for (int index = _count - 1; index >= 0; index--)
+            {
+                yield return _values[index];
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

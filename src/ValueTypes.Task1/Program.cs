@@ -3,13 +3,13 @@ using System.Text;
 
 namespace ValueTypes.Task1
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            decimal deposit = 1000;
-            int years = 3;
-            decimal rate = 10;
+            var deposit = 1000;
+            var years = 3;
+            var rate = 10;
 
             Console.WriteLine($"""
                 Начальный вклад: {deposit}
@@ -18,28 +18,45 @@ namespace ValueTypes.Task1
 
                 """);
 
-            var taskResult = CalculatePercents(deposit, years, rate);
-            Console.WriteLine(taskResult);
+            var yearRecords = CalculateDepositHistory(deposit, years, rate);
+
+            foreach (var (year, amount) in yearRecords)
+            {
+                Console.WriteLine($"Год {year}: {amount.ToString("F2", CultureInfo.InvariantCulture)} руб.");
+            }
         }
 
-        public static string CalculatePercents(decimal initialDeposit, int years, decimal interestRate)
+        /// <summary>
+        /// Считает проценты на заданное количество лет.
+        /// </summary>
+        /// <param name="initialDeposit">Начальный депозит.</param>
+        /// <param name="years">Количество лет.</param>
+        /// <param name="interestRate">Процентная ставка в процентах.</param>
+        /// <returns>Массив пар (год, сумма).</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Любое из значений оказалось не положительным.
+        /// </exception>
+        public static (int Year, decimal Amount)[] CalculateDepositHistory(decimal initialDeposit, int years, decimal interestRate)
         {
-            var resultData = new StringBuilder();
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(initialDeposit);
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(years);
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(interestRate);
 
-            for (int currentYear = 1; currentYear <= years; currentYear++)
+            var result = new (int Year, decimal Amount)[years];
+            var currentAmount = initialDeposit;
+            var multiplier = 1 + (interestRate / 100);
+
+            for (int year = 0; year < years; year++)
             {
-                initialDeposit += initialDeposit * (interestRate / 100);
+                result[year].Year = year + 1;
 
-                var amountFormatted = initialDeposit.ToString("F2", CultureInfo.InvariantCulture);
+                currentAmount *= multiplier;
+                result[year].Amount = currentAmount;
 
-                resultData.Append($"Год {currentYear}: {amountFormatted} руб.");
-                if (currentYear < years)
-                {
-                    resultData.Append('\n');
-                }
+                currentAmount = Math.Round(currentAmount, 2, MidpointRounding.AwayFromZero);
             }
 
-            return resultData.ToString();
+            return result;
         }
     }
 }

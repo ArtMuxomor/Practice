@@ -5,39 +5,54 @@ using System.Text;
 
 namespace Collections.Task
 {
-    class SmartStack<T> : IEnumerable<T>
+    /// <summary>
+    /// Умный стек.
+    /// </summary>
+    /// <typeparam name="T">Тип элементов стека.</typeparam>
+    public class SmartStack<T> : IEnumerable<T>
     {
+        /// <summary>
+        /// Массив с элементами стека.
+        /// </summary>
         private T[] _values;
+        /// <summary>
+        /// Количество добавленных элементов.
+        /// </summary>
         private int _count;
 
+        /// <summary>
+        /// Свойства, отражающее количество добавленных элементов.
+        /// </summary>
         public int Count => _count;
+        /// <summary>
+        /// Свойства, отражающее вместимость стека.
+        /// </summary>
         public int Capacity => _values.Length;
 
-        public SmartStack()
+        /// <summary>
+        /// Конструктор стека.
+        /// </summary>
+        /// <param name="capacity">Начальная вместимость.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Если вместимость оказалась отрицательной.</exception>
+        public SmartStack(int capacity = 4)
         {
-            _values = new T[4];
+            ArgumentOutOfRangeException.ThrowIfNegative(capacity);
+
+            _values = new T[capacity];
             _count = 0;
         }
 
-        public SmartStack(int size)
-        {
-            if (size < 0)
-            {
-                throw new ArgumentOutOfRangeException("Размер должен быть не меньше 0.");
-            }
-            _values = new T[size];
-            _count = 0;
-        }
-
+        /// <summary>
+        /// Конструктор стека.
+        /// </summary>
+        /// <param name="values">Коллекция, элементы которой будут добавлены на вершину стека.</param>
+        /// <exception cref="ArgumentNullException">Если передан указатель null.</exception>
         public SmartStack(IEnumerable<T> values)
         {
-            if (values == null)
-            {
-                throw new ArgumentNullException();
-            }
+            ArgumentNullException.ThrowIfNull(values);
 
             int count = 0;
-            foreach (var item in values)
+            foreach (var value in values)
             {
                 count++;
             }
@@ -50,6 +65,10 @@ namespace Collections.Task
             }
         }
 
+        /// <summary>
+        /// Добавление элемента на вершину стека.
+        /// </summary>
+        /// <param name="value">Добавляемый элемент.</param>
         public void Push(T value)
         {
             if (_count == _values.Length)
@@ -61,12 +80,14 @@ namespace Collections.Task
             _count++;
         }
 
+        /// <summary>
+        /// Добавление коллекции элементов на вершину стека.
+        /// </summary>
+        /// <param name="values">Коллекция добавляемых элементов.</param>
+        /// <exception cref="ArgumentNullException">Если передал указатель null.</exception>
         public void PushRange(IEnumerable<T> values)
         {
-            if (values == null)
-            {
-                throw new ArgumentNullException();
-            }
+            ArgumentNullException.ThrowIfNull(values);
 
             foreach (var value in values)
             {
@@ -74,13 +95,28 @@ namespace Collections.Task
             }
         }
 
-        private void ExpandStack(int newSize)
+        /// <summary>
+        /// Увеличение вместипости стека.
+        /// </summary>
+        /// <param name="newCapacity">Новая вместимость.</param>
+        /// <exception cref="InvalidOperationException">Если новая вместимость не больше текущей.</exception>
+        private void ExpandStack(int newCapacity)
         {
-            T[] newStack = new T[newSize];
+            if (newCapacity <= _values.Length)
+            {
+                throw new InvalidOperationException($"Недопустимая вместимость, должно быть значение больше {_values.Length}.");
+            }
+
+            T[] newStack = new T[newCapacity];
             Array.Copy(_values, newStack, _count);
             _values = newStack;
         }
 
+        /// <summary>
+        /// Удаляет и возвращает элемент, находящийся на вершине стека.
+        /// </summary>
+        /// <returns>Элемент типа T, который был удалён с вершины стека.</returns>
+        /// <exception cref="InvalidOperationException">Если стек пуст.</exception>
         public T Pop()
         {
             if (_count == 0)
@@ -94,6 +130,11 @@ namespace Collections.Task
             return value;
         }
 
+        /// <summary>
+        /// Возвращает элемент, находящийся на вершине стека, не удаляя его.
+        /// </summary>
+        /// <returns>Элемент типа T, который находится на вершине стека.</returns>
+        /// <exception cref="InvalidOperationException">Если стек пуст.</exception>
         public T Peek()
         {
             if (_count == 0)
@@ -104,6 +145,11 @@ namespace Collections.Task
             return _values[_count - 1];
         }
 
+        /// <summary>
+        /// Проверяет, содержит ли коллекция элемент.
+        /// </summary>
+        /// <param name="value">Значение, которое требуется найти в коллекции.</param>
+        /// <returns>Значение типа bool с результатом поиска.</returns>
         public bool Contains(T value)
         {
             for (int index = 0; index < _count; index++)
@@ -129,13 +175,23 @@ namespace Collections.Task
             return GetEnumerator();
         }
 
+        /// <summary>
+        /// Возвращение элемента по заданному индексу, начиная от вершины.
+        /// </summary>
+        /// <param name="index">
+        /// Индекс, находящийся в границах размера массива и отсчитываемый от 0, по которому возвращается элемент.
+        /// </param>
+        /// <returns>Элемент, расположенный по указанному индексу, начиная от вершины стека.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Если индекс меньше 0 или не меньше количества элементов в стеке.
+        /// </exception>
         public T this[int index]
         {
             get
             {
                 if (index < 0 || index >= _count)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
 
                 return _values[_count - index - 1];

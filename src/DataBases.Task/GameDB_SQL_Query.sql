@@ -4,7 +4,9 @@ GO
 USE GameDB;
 GO
 
--- Список характеристик
+/*
+	Список характеристик
+*/
 CREATE TABLE Stats (
 	stat_id INT IDENTITY(1,1) PRIMARY KEY,
 	stat_name NVARCHAR(50) NOT NULL,
@@ -12,7 +14,9 @@ CREATE TABLE Stats (
 	CHECK (LEN(stat_name) > 0)
 );
 
--- Список типов оружия
+/*
+	Список типов оружия
+*/
 CREATE TABLE WeaponType (
 	weapon_type_id INT IDENTITY(1,1) PRIMARY KEY,
 	weapon_type_name NVARCHAR(50) NOT NULL,
@@ -20,7 +24,9 @@ CREATE TABLE WeaponType (
 	CHECK (LEN(weapon_type_name) > 0)
 );
 
--- Список типов артефактов
+/*
+	Список типов артефактов
+*/
 CREATE TABLE ArtifactType (
 	artifact_type_id INT IDENTITY(1,1) PRIMARY KEY,
 	artifact_type_name NVARCHAR(50) NOT NULL,
@@ -28,7 +34,9 @@ CREATE TABLE ArtifactType (
 	CHECK (LEN(artifact_type_name) > 0)
 );
 
--- Таблица персонажей
+/*
+	Таблица персонажей
+*/
 CREATE TABLE Character (
 	character_guid UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	character_name NVARCHAR(100) NOT NULL,
@@ -46,7 +54,9 @@ CREATE TABLE Character (
 	CHECK (character_coins >= 0)
 );
 
--- Таблица оружия
+/*
+	Таблица оружия
+*/
 CREATE TABLE Weapon (
 	weapon_guid UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	weapon_type_id INT NOT NULL,
@@ -64,7 +74,9 @@ CREATE TABLE Weapon (
 	CHECK (weapon_multiplier >= 1.0)
 );
 
--- Таблица артефактов
+/*
+	Таблица артефактов
+*/
 CREATE TABLE Artifact (
 	artifact_guid UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	artifact_type_id INT NOT NULL,
@@ -82,7 +94,9 @@ CREATE TABLE Artifact (
 	CHECK (artifact_multiplier >= 1.0)
 );
 
--- Связь Персонаж-Оружие
+/*
+	Связь Персонаж-Оружие
+*/
 CREATE TABLE Character_Weapon (
 	character_guid UNIQUEIDENTIFIER NOT NULL,
 	weapon_guid UNIQUEIDENTIFIER NOT NULL,
@@ -94,7 +108,9 @@ CREATE TABLE Character_Weapon (
 	FOREIGN KEY (weapon_guid) REFERENCES Weapon(weapon_guid)
 );
 
--- Связь Персонаж-Артефакт
+/*
+	Связь Персонаж-Артефакт
+*/
 CREATE TABLE Character_Artifact (
 	character_guid UNIQUEIDENTIFIER NOT NULL,
 	artifact_guid UNIQUEIDENTIFIER NOT NULL,
@@ -108,7 +124,9 @@ CREATE TABLE Character_Artifact (
 
 
 
--- 1. Справочники
+/*
+	1. Справочники
+*/
 INSERT INTO Stats (stat_name) VALUES
 	(N'Атака'),
 	(N'ХП'),
@@ -180,7 +198,9 @@ INSERT INTO Artifact (artifact_type_id, artifact_level, stat_id, artifact_multip
 	-- Амулеты
 	(6, 1, 2, 1.1), (6, 6, 5, 1.5), (6, 12, 5, 2.2), (6, 2, 3, 1.15), (6, 9, 4, 1.8);
 
--- Гост (@character1): Меч и 1 артефакт
+/*
+	Гост (@character1): Меч и 1 артефакт
+*/
 INSERT INTO Character_Weapon (character_guid, weapon_guid, is_equipped) VALUES
 (
 	@character1,
@@ -205,7 +225,9 @@ INSERT INTO Character_Artifact (character_guid, artifact_guid, is_equipped)
 		WHERE CA.artifact_guid = A.artifact_guid
 	);
 
--- Макс (@character2): Лук и 2 Артефакта
+/*
+	Макс (@character2): Лук и 2 Артефакта
+*/
 INSERT INTO Character_Weapon (character_guid, weapon_guid, is_equipped) VALUES
 (
 	@character2,
@@ -230,7 +252,9 @@ INSERT INTO Character_Artifact (character_guid, artifact_guid, is_equipped)
 		WHERE CA.artifact_guid = A.artifact_guid
 	);
 
--- Аки (@character3): Коса и 3 Артефактов
+/*
+	Аки (@character3): Коса и 3 Артефактов
+*/
 INSERT INTO Character_Weapon (character_guid, weapon_guid, is_equipped) VALUES
 (
 	@character3,
@@ -258,9 +282,13 @@ GO
 
 
 
--- Представления
+/*
+	Представления
+*/
 
--- Топ 10 высокоуровневых персонажей
+/*
+	Топ 10 высокоуровневых персонажей
+*/
 CREATE VIEW top_10_high_level_heroes AS
 SELECT TOP 10
 	character_name,
@@ -271,7 +299,9 @@ WHERE character_level >= 30
 ORDER BY character_coins DESC;
 GO
 
--- Статистика по артефактам
+/*
+	Статистика по артефактам
+*/
 CREATE VIEW artifact_total_stats AS
 SELECT
 	at.artifact_type_name,
@@ -282,7 +312,9 @@ LEFT JOIN Artifact a ON at.artifact_type_id = a.artifact_type_id
 GROUP BY at.artifact_type_name;
 GO
 
--- Информация по оружиям
+/*
+	Информация по оружиям
+*/
 CREATE VIEW character_weapon_stats AS
 SELECT
 	C.character_name,
@@ -296,16 +328,22 @@ GO
 
 
 
--- Запросы
+/*
+	Запросы
+*/
 
--- Запрос на обновление данных (множители арбалетов * 1,05)
+/*
+	Запрос на обновление данных (множители арбалетов * 1,05)
+*/
 UPDATE W
 SET W.weapon_multiplier = W.weapon_multiplier * 1.05
 FROM Weapon W
 INNER JOIN WeaponType WT ON W.weapon_type_id = WT.weapon_type_id
 WHERE WT.weapon_type_name = N'Арбалет';
 
--- Запрос на удаление данных (ничьи артефакты)
+/*
+	Запрос на удаление данных (ничьи артефакты)
+*/
 DELETE FROM Artifact
 WHERE NOT EXISTS (
 	SELECT 1 

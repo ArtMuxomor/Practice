@@ -2,29 +2,75 @@
 
 namespace DataBases.Task
 {
+    /// <summary>
+    /// Контекст базы данных игры.
+    /// </summary>
     public class GameDbContext : DbContext
     {
         private readonly string _connectionString;
 
+        /// <summary>
+        /// Таблица со статами.
+        /// </summary>
         public DbSet<Stat> Stats { get; set; }
+
+        /// <summary>
+        /// Таблица с типами оружия.
+        /// </summary>
         public DbSet<WeaponType> WeaponTypes { get; set; }
+
+        /// <summary>
+        /// Таблица с типами артефактов.
+        /// </summary>
         public DbSet<ArtifactType> ArtifactTypes { get; set; }
+
+        /// <summary>
+        /// Таблица с персонажами.
+        /// </summary>
         public DbSet<Character> Characters { get; set; }
+
+        /// <summary>
+        /// Таблица с оружиями.
+        /// </summary>
         public DbSet<Weapon> Weapons { get; set; }
+
+        /// <summary>
+        /// Таблица с артефактами.
+        /// </summary>
         public DbSet<Artifact> Artifacts { get; set; }
+
+        /// <summary>
+        /// Связь Персонаж-Оружие.
+        /// </summary>
         public DbSet<CharacterWeapon> CharacterWeapons { get; set; }
+
+        /// <summary>
+        /// Связь Персонаж-Артефакт.
+        /// </summary>
         public DbSet<CharacterArtifact> CharacterArtifacts { get; set; }
 
+        /// <summary>
+        /// Конструктор GameDbContext.
+        /// </summary>
+        /// <param name="connectionString">Строка с конфигурацией подключения.</param>
         public GameDbContext(string connectionString)
         {
             _connectionString = connectionString;
         }
 
+        /// <summary>
+        /// Настройка подключения к SQL-серверу.
+        /// </summary>
+        /// <param name="optionsBuilder">Строитель настроек.</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_connectionString);
         }
 
+        /// <summary>
+        /// Настройка сопоставления объектов и таблиц БД.
+        /// </summary>
+        /// <param name="modelBuilder">Строитель моделей.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Stats

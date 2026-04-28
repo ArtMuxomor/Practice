@@ -78,8 +78,8 @@ namespace DataBases.Task
             {
                 entity.ToTable("Stats");
                 entity.HasKey(e => e.StatId);
-                entity.Property(e => e.StatId).HasColumnName("stat_id");
-                entity.Property(e => e.StatName).HasColumnName("stat_name");
+                entity.Property(e => e.StatId).HasColumnName("StatId");
+                entity.Property(e => e.StatName).HasColumnName("StatName");
             });
 
             // WeaponType
@@ -87,8 +87,8 @@ namespace DataBases.Task
             {
                 entity.ToTable("WeaponType");
                 entity.HasKey(e => e.WeaponTypeId);
-                entity.Property(e => e.WeaponTypeId).HasColumnName("weapon_type_id");
-                entity.Property(e => e.WeaponTypeName).HasColumnName("weapon_type_name");
+                entity.Property(e => e.WeaponTypeId).HasColumnName("WeaponTypeId");
+                entity.Property(e => e.WeaponTypeName).HasColumnName("WeaponTypeName");
             });
 
             // ArtifactType
@@ -96,8 +96,8 @@ namespace DataBases.Task
             {
                 entity.ToTable("ArtifactType");
                 entity.HasKey(e => e.ArtifactTypeId);
-                entity.Property(e => e.ArtifactTypeId).HasColumnName("artifact_type_id");
-                entity.Property(e => e.ArtifactTypeName).HasColumnName("artifact_type_name");
+                entity.Property(e => e.ArtifactTypeId).HasColumnName("ArtifactTypeId");
+                entity.Property(e => e.ArtifactTypeName).HasColumnName("ArtifactTypeName");
             });
 
             // Character
@@ -105,14 +105,14 @@ namespace DataBases.Task
             {
                 entity.ToTable("Character");
                 entity.HasKey(e => e.CharacterGuid);
-                entity.Property(e => e.CharacterGuid).HasColumnName("character_guid").HasDefaultValueSql("NEWID()");
-                entity.Property(e => e.CharacterName).HasColumnName("character_name");
-                entity.Property(e => e.CharacterSex).HasColumnName("character_sex");
-                entity.Property(e => e.CharacterLevel).HasColumnName("character_level");
-                entity.Property(e => e.CharacterExp).HasColumnName("character_exp");
-                entity.Property(e => e.CharacterCoins).HasColumnName("character_coins");
-                entity.Property(e => e.CharacterCreationTime).HasColumnName("character_creation_time").HasDefaultValueSql("GETDATE()");
-                entity.Property(e => e.IsOnline).HasColumnName("is_online");
+                entity.Property(e => e.CharacterGuid).HasColumnName("CharacterGuid").HasDefaultValueSql("NEWID()");
+                entity.Property(e => e.CharacterName).HasColumnName("CharacterName");
+                entity.Property(e => e.CharacterSex).HasColumnName("CharacterSex");
+                entity.Property(e => e.CharacterLevel).HasColumnName("CharacterLevel");
+                entity.Property(e => e.CharacterExp).HasColumnName("CharacterExp");
+                entity.Property(e => e.CharacterCoins).HasColumnName("CharacterCoins");
+                entity.Property(e => e.CharacterCreationTime).HasColumnName("CharacterCreationTime").HasDefaultValueSql("GETDATE()");
+                entity.Property(e => e.IsOnline).HasColumnName("IsOnline");
             });
 
             // Weapon
@@ -120,13 +120,13 @@ namespace DataBases.Task
             {
                 entity.ToTable("Weapon");
                 entity.HasKey(e => e.WeaponGuid);
-                entity.Property(e => e.WeaponGuid).HasColumnName("weapon_guid").HasDefaultValueSql("NEWID()");
-                entity.Property(e => e.WeaponTypeId).HasColumnName("weapon_type_id");
-                entity.Property(e => e.WeaponLevel).HasColumnName("weapon_level");
-                entity.Property(e => e.WeaponExp).HasColumnName("weapon_exp");
-                entity.Property(e => e.StatId).HasColumnName("stat_id");
-                entity.Property(e => e.WeaponMultiplier).HasColumnName("weapon_multiplier").HasColumnType("decimal(5, 2)");
-                entity.Property(e => e.WeaponGetTime).HasColumnName("weapon_get_time").HasDefaultValueSql("GETDATE()");
+                entity.Property(e => e.WeaponGuid).HasColumnName("WeaponGuid").HasDefaultValueSql("NEWID()");
+                entity.Property(e => e.WeaponTypeId).HasColumnName("WeaponTypeId");
+                entity.Property(e => e.WeaponLevel).HasColumnName("WeaponLevel");
+                entity.Property(e => e.WeaponExp).HasColumnName("WeaponExp");
+                entity.Property(e => e.StatId).HasColumnName("StatId");
+                entity.Property(e => e.WeaponMultiplier).HasColumnName("WeaponMultiplier").HasColumnType("decimal(5, 2)");
+                entity.Property(e => e.WeaponGetTime).HasColumnName("WeaponGetTime").HasDefaultValueSql("GETDATE()");
             });
 
             // Artifact
@@ -134,13 +134,13 @@ namespace DataBases.Task
             {
                 entity.ToTable("Artifact");
                 entity.HasKey(e => e.ArtifactGuid);
-                entity.Property(e => e.ArtifactGuid).HasColumnName("artifact_guid").HasDefaultValueSql("NEWID()");
-                entity.Property(e => e.ArtifactTypeId).HasColumnName("artifact_type_id");
-                entity.Property(e => e.ArtifactLevel).HasColumnName("artifact_level");
-                entity.Property(e => e.ArtifactExp).HasColumnName("artifact_exp");
-                entity.Property(e => e.StatId).HasColumnName("stat_id");
-                entity.Property(e => e.ArtifactMultiplier).HasColumnName("artifact_multiplier").HasColumnType("decimal(5, 2)");
-                entity.Property(e => e.ArtifactGetTime).HasColumnName("artifact_get_time").HasDefaultValueSql("GETDATE()");
+                entity.Property(e => e.ArtifactGuid).HasColumnName("ArtifactGuid").HasDefaultValueSql("NEWID()");
+                entity.Property(e => e.ArtifactTypeId).HasColumnName("ArtifactTypeId");
+                entity.Property(e => e.ArtifactLevel).HasColumnName("ArtifactLevel");
+                entity.Property(e => e.ArtifactExp).HasColumnName("ArtifactExp");
+                entity.Property(e => e.StatId).HasColumnName("StatId");
+                entity.Property(e => e.ArtifactMultiplier).HasColumnName("ArtifactMultiplier").HasColumnType("decimal(5, 2)");
+                entity.Property(e => e.ArtifactGetTime).HasColumnName("ArtifactGetTime").HasDefaultValueSql("GETDATE()");
             });
 
             // Связь Character_Weapon
@@ -150,9 +150,9 @@ namespace DataBases.Task
                 // Составной ключ
                 entity.HasKey(e => new { e.CharacterGuid, e.WeaponGuid });
 
-                entity.Property(e => e.CharacterGuid).HasColumnName("character_guid");
-                entity.Property(e => e.WeaponGuid).HasColumnName("weapon_guid");
-                entity.Property(e => e.IsEquipped).HasColumnName("is_equipped");
+                entity.Property(e => e.CharacterGuid).HasColumnName("CharacterGuid");
+                entity.Property(e => e.WeaponGuid).HasColumnName("WeaponGuid");
+                entity.Property(e => e.IsEquipped).HasColumnName("IsEquipped");
             });
 
             // Связь Character_Artifact
@@ -162,9 +162,9 @@ namespace DataBases.Task
                 // Составной ключ
                 entity.HasKey(e => new { e.CharacterGuid, e.ArtifactGuid });
 
-                entity.Property(e => e.CharacterGuid).HasColumnName("character_guid");
-                entity.Property(e => e.ArtifactGuid).HasColumnName("artifact_guid");
-                entity.Property(e => e.IsEquipped).HasColumnName("is_equipped");
+                entity.Property(e => e.CharacterGuid).HasColumnName("CharacterGuid");
+                entity.Property(e => e.ArtifactGuid).HasColumnName("ArtifactGuid");
+                entity.Property(e => e.IsEquipped).HasColumnName("IsEquipped");
             });
         }
     }

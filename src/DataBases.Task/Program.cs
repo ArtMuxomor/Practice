@@ -45,7 +45,7 @@ namespace DataBases.Task
                 var newName = "Отталкивание (ADO)";
 
                 // Create (insert)
-                string insertSql = "INSERT INTO Stats (stat_name) VALUES (@name)";
+                string insertSql = "INSERT INTO Stats (StatName) VALUES (@name)";
                 using (var cmd = new SqlCommand(insertSql, connection))
                 {
                     cmd.Parameters.AddWithValue("@name", newName);
@@ -59,7 +59,7 @@ namespace DataBases.Task
                 AdoNetPrintStatsConsole(connection, ref lastId, selectLimit);
 
                 // Update
-                string updateSql = "UPDATE Stats SET stat_name = @name WHERE stat_id = @id";
+                string updateSql = "UPDATE Stats SET StatName = @name WHERE StatId = @id";
                 using (var cmd = new SqlCommand(updateSql, connection))
                 {
                     cmd.Parameters.AddWithValue("@name", "Двойное отталкивание (ADO)");
@@ -71,7 +71,7 @@ namespace DataBases.Task
                 AdoNetPrintStatsConsole(connection, ref lastId, selectLimit);
 
                 // Delete
-                string deleteSql = "DELETE FROM Stats WHERE stat_id = @id";
+                string deleteSql = "DELETE FROM Stats WHERE StatId = @id";
                 using (var cmd = new SqlCommand(deleteSql, connection))
                 {
                     cmd.Parameters.AddWithValue("@id", lastId);
@@ -90,7 +90,7 @@ namespace DataBases.Task
         /// <param name="lastId"></param>
         static void AdoNetPrintStatsConsole(SqlConnection connection, ref int lastId, int limit = 100)
         {
-            string selectSql = $"SELECT TOP {limit} stat_id, stat_name FROM Stats ORDER BY stat_id";
+            string selectSql = $"SELECT TOP {limit} StatId, StatName FROM Stats ORDER BY StatId";
             using (var cmd = new SqlCommand(selectSql, connection))
             {
                 using (var reader = cmd.ExecuteReader())

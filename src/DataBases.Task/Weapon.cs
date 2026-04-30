@@ -1,5 +1,8 @@
-﻿namespace DataBases.Task
+﻿namespace DataBases.PracticeTask
 {
+    /// <summary>
+    /// Оружие.
+    /// </summary>
     public class Weapon
     {
         /// <summary>

@@ -1,5 +1,8 @@
-﻿namespace DataBases.Task
+﻿namespace DataBases.PracticeTask
 {
+    /// <summary>
+    /// Тип артефакта.
+    /// </summary>
     public class ArtifactType
     {
         /// <summary>

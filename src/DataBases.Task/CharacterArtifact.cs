@@ -1,5 +1,8 @@
-﻿namespace DataBases.Task
+﻿namespace DataBases.PracticeTask
 {
+    /// <summary>
+    /// Связь Персонаж-Артефакт.
+    /// </summary>
     public class CharacterArtifact
     {
         /// <summary>

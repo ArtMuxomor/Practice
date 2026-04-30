@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace DataBases.Task
+namespace DataBases.PracticeTask
 {
     /// <summary>
     /// Контекст базы данных игры.
@@ -76,7 +76,7 @@ namespace DataBases.Task
             // Stats
             modelBuilder.Entity<Stat>(entity =>
             {
-                entity.ToTable("Stats");
+                entity.ToTable("Stat");
                 entity.HasKey(e => e.StatId);
                 entity.Property(e => e.StatId).HasColumnName("StatId");
                 entity.Property(e => e.StatName).HasColumnName("StatName");

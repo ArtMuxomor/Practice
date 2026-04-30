@@ -1,5 +1,8 @@
-﻿namespace DataBases.Task
+﻿namespace DataBases.PracticeTask
 {
+    /// <summary>
+    /// Характеристика.
+    /// </summary>
     public class Stat
     {
         /// <summary>
@@ -12,6 +15,7 @@
         /// </summary>
         public string StatName { get; set; } = null!;
 
+        /// <inheritdoc/>
         public override string? ToString()
         {
             return $"№{StatId} {StatName}";

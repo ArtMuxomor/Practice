@@ -1,5 +1,8 @@
-﻿namespace DataBases.Task
+﻿namespace DataBases.PracticeTask
 {
+    /// <summary>
+    /// Артефакт.
+    /// </summary>
     public class Artifact
     {
         /// <summary>

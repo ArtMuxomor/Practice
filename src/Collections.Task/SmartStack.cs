@@ -21,11 +21,11 @@ namespace Collections.Task
         private int _count;
 
         /// <summary>
-        /// Свойства, отражающее количество добавленных элементов.
+        /// Количество добавленных элементов.
         /// </summary>
         public int Count => _count;
         /// <summary>
-        /// Свойства, отражающее вместимость стека.
+        /// Вместимость стека.
         /// </summary>
         public int Capacity => _values.Length;
 
@@ -66,7 +66,7 @@ namespace Collections.Task
         }
 
         /// <summary>
-        /// Добавление элемента на вершину стека.
+        /// Добавляет элемент на вершину стека.
         /// </summary>
         /// <param name="value">Добавляемый элемент.</param>
         public void Push(T value)
@@ -81,7 +81,7 @@ namespace Collections.Task
         }
 
         /// <summary>
-        /// Добавление коллекции элементов на вершину стека.
+        /// Добавляет коллекцию элементов на вершину стека.
         /// </summary>
         /// <param name="values">Коллекция добавляемых элементов.</param>
         /// <exception cref="ArgumentNullException">Если передал указатель null.</exception>
@@ -96,7 +96,7 @@ namespace Collections.Task
         }
 
         /// <summary>
-        /// Увеличение вместипости стека.
+        /// Увеличивает вместимость стека.
         /// </summary>
         /// <param name="newCapacity">Новая вместимость.</param>
         /// <exception cref="InvalidOperationException">Если новая вместимость не больше текущей.</exception>
@@ -146,7 +146,7 @@ namespace Collections.Task
         }
 
         /// <summary>
-        /// Проверяет, содержит ли коллекция элемент.
+        /// Проверяет, содержит ли стек элемент.
         /// </summary>
         /// <param name="value">Значение, которое требуется найти в коллекции.</param>
         /// <returns>Значение типа bool с результатом поиска.</returns>
@@ -162,6 +162,7 @@ namespace Collections.Task
             return false;
         }
 
+        /// <inheritdoc/>
         public IEnumerator<T> GetEnumerator()
         {
             for (int index = _count - 1; index >= 0; index--)
@@ -170,13 +171,14 @@ namespace Collections.Task
             }
         }
 
+        /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
         /// <summary>
-        /// Возвращение элемента по заданному индексу, начиная от вершины.
+        /// Возвращает элемент по заданному индексу, начиная от вершины.
         /// </summary>
         /// <param name="index">
         /// Индекс, находящийся в границах размера массива и отсчитываемый от 0, по которому возвращается элемент.

@@ -1,5 +1,8 @@
-﻿namespace DataBases.Task
+﻿namespace DataBases.PracticeTask
 {
+    /// <summary>
+    /// Персонаж.
+    /// </summary>
     public class Character
     {
         /// <summary>

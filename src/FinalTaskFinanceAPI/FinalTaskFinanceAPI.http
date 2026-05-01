@@ -1,0 +1,6 @@
+@FinalTaskFinanceAPI_HostAddress = http://localhost:5107
+
+GET {{FinalTaskFinanceAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

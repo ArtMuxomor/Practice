@@ -72,12 +72,12 @@
             Console.WriteLine($"Наличие \"string4\" в стеке - {stackString.Contains("string4")}\n");
 
             // 1 раз False (нет пустых в трёх элементах)
-            Console.WriteLine($"Наличие null в стеке - {stackString.Contains(null)}\n");
+            Console.WriteLine($"Наличие null в стеке - {stackString.Contains(null!)}\n");
 
-            stackString.Push(null);
+            stackString.Push(null!);
             Console.WriteLine("Добавили null в стек");
             // 1 раз True, так как добавили null
-            Console.WriteLine($"Наличие null в стеке - {stackString.Contains(null)}\n");
+            Console.WriteLine($"Наличие null в стеке - {stackString.Contains(null!)}\n");
 
             Console.WriteLine("Все элементы второго стека с null:");
             Console.WriteLine($"{String.Join(", ", stackString)}\n");

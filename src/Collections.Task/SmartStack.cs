@@ -73,7 +73,9 @@ namespace Collections.Task
         {
             if (_count == _values.Length)
             {
-                ExpandStack(_values.Length == 0 ? 4 : _values.Length * 2);
+                ExpandStack(_values.Length == 0
+                            ? 4
+                            : _values.Length * 2);
             }
 
             _values[_count] = value;
@@ -126,7 +128,7 @@ namespace Collections.Task
 
             _count--;
             T value = _values[_count];
-            _values[_count] = default;
+            _values[_count] = default!;
             return value;
         }
 
